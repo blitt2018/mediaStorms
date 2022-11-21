@@ -12,6 +12,7 @@ import numpy as np
 import sklearn.model_selection
 import sklearn
 from sentence_transformers import SentenceTransformer, InputExample, losses, util
+import csv 
 
 #we can't have any na rows when calculating embeddings on content 
 df = pd.read_csv("/shared/3/projects/benlitterer/localNews/mergedNewsData/mergedNER.tsv", sep="\t").dropna(subset=["content"])
