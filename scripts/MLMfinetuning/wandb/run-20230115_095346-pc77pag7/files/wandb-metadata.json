@@ -1,0 +1,42 @@
+{
+    "os": "Linux-5.15.0-52-generic-x86_64-with-glibc2.35",
+    "python": "3.9.12",
+    "heartbeatAt": "2023-01-15T09:53:48.547864",
+    "startedAt": "2023-01-15T09:53:46.995584",
+    "docker": null,
+    "gpu": "NVIDIA RTX A6000",
+    "gpu_count": 3,
+    "cpu_count": 48,
+    "cuda": null,
+    "args": [
+        "--model_name_or_path",
+        "roberta-base",
+        "--train_file",
+        "/shared/3/projects/benlitterer/localNews/fineTuningIntermediate/first5Mtitle_text.txt",
+        "--per_device_train_batch_size",
+        "10",
+        "--per_device_eval_batch_size",
+        "10",
+        "--do_train",
+        "--do_eval",
+        "--evaluation_strategy",
+        "epoch",
+        "--overwrite_output_dir",
+        "--validation_split_percentage",
+        "1",
+        "--output_dir",
+        "/home/blitt/projects/localNews/models/sentEmbeddings/2.0-RoBERTaFinetuned5M"
+    ],
+    "state": "running",
+    "program": "/home/blitt/projects/localNews/scripts/MLMfinetuning/run_mlm.py",
+    "codePath": "scripts/MLMfinetuning/run_mlm.py",
+    "git": {
+        "remote": "https://github.com/blitt2018/localNews.git",
+        "commit": "d39906be58c2c2381e6228239b9c22e9c129e53c"
+    },
+    "email": null,
+    "root": "/home/blitt/projects/localNews",
+    "host": "taco",
+    "username": "blitt",
+    "executable": "/opt/anaconda/bin/python"
+}
