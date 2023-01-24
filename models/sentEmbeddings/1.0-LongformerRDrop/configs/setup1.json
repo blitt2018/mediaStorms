@@ -1,0 +1,9 @@
+{
+	"GPU": "1",
+	"EPOCHS" : "4",
+	"BATCH_SIZE": "3", 
+	"DROPOUT": ".25", 
+	"REG_ALPHA": ".5",
+	"NUM_TOKENS": "1500", 
+	"LANGUAGES": "justEn"
+}
