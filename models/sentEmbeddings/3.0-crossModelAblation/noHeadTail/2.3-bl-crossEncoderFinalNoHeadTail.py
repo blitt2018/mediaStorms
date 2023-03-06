@@ -32,7 +32,7 @@ import time
 # In[2]:
 
 
-DEVICE_NUM = 4
+DEVICE_NUM = 0 
 BATCH_SIZE = 5
 EPOCHS = 3
 SEED = 85
@@ -58,33 +58,19 @@ np.random.seed(SEED)
 
 
 #df = pd.read_csv("/shared/3/projects/benlitterer/localNews/NetworkMVP/translatedCleaned.tsv", sep="\t")
-df = pd.read_csv("/home/blitt/projects/localNews/data/processed/translated_384_0.tsv", sep="\t")
+df = pd.read_csv("/shared/3/projects/newsDiffusion/data/processed/translated_256_0.tsv", sep="\t")
 
 #put ground truth values into a list 
 df["ground_truth"] = df['Overall']
 
 #get only the columns we need 
-#TODO: do we need "pair_id"? 
-leanDf = df[["ground_truth",  'text1', 'text2', 'title1', 'title2', 'url1_lang', 'url2_lang']].dropna()
-#for when using merged text
-#leanDf = df[["ground_truth",  'text1Merged', 'text2Merged', 'url1_lang', 'url2_lang']].dropna()
+leanDf = df[["ground_truth",  'text1Merged', 'text2Merged', 'url1_lang', 'url2_lang']]
 
 #rescale data from (0, 4): (0, 1)
 leanDf["ground_truth"] = 1 - ((leanDf["ground_truth"] - 1) / 3)
 
 #reset index so it is contiguous set of numbers 
 leanDf = leanDf.reset_index(drop=True)
-
-"""
-#needed when not using merged data
-#now combine title and text together 
-#first add ". " to title 
-leanDf["title1"] = leanDf["title1"].apply(lambda x: x + ". ")
-leanDf["title2"] = leanDf["title2"].apply(lambda x: x + ". ")
-
-leanDf["text1"] = leanDf["title1"] + leanDf["text1"]
-leanDf["text2"] = leanDf["title2"] + leanDf["text2"]
-"""
 
 
 # In[5]:
@@ -158,7 +144,6 @@ def validation(model, validLoader, loss_func):
 
         #send batch info through model 
         pred1, pred2 = model(input_ids, attention_mask)
-        pred1, pred2 = pred1.unsqueeze(0), pred2.unsqueeze(0)
         
         #get loss relating to label prediction 
         loss1 = loss_func(label, pred1) * FORWARD_WEIGHT 
@@ -243,7 +228,6 @@ def train(trainDataset, validDataset):
 
             #send batch info through model 
             pred1, pred2 = model(input_ids, attention_mask)
-            pred1, pred2 = pred1.unsqueeze(0), pred2.unsqueeze(0)
         
             #get loss for label prediction, rdrop 
             loss1 = loss_func(label, pred1) * FORWARD_WEIGHT 
@@ -330,17 +314,12 @@ for i, (train_index, valid_index) in enumerate(kf.split(enDf)):
     trainDataset = Dataset.from_pandas(trainDf)
     validDataset = Dataset.from_pandas(validDf)
     
-    """
-    for using merged text
     trainDataset = trainDataset.map(lambda x: tokenizer(x["text1Merged"], x["text2Merged"], max_length=512, padding="max_length", truncation=True))
     validDataset = validDataset.map(lambda x: tokenizer(x["text1Merged"], x["text2Merged"], max_length=512, padding="max_length", truncation=True))
-    """
-    trainDataset = trainDataset.map(lambda x: tokenizer(x["text1"], x["text2"], max_length=512, padding="max_length", truncation=True))
-    validDataset = validDataset.map(lambda x: tokenizer(x["text1"], x["text2"], max_length=512, padding="max_length", truncation=True))
 
     #only need the input information 
-    trainDataset = trainDataset.remove_columns(["text1", "text2", "__index_level_0__"])
-    validDataset = validDataset.remove_columns(["text1", "text2", "__index_level_0__"])
+    trainDataset = trainDataset.remove_columns(["text1Merged", "text2Merged", "__index_level_0__"])
+    validDataset = validDataset.remove_columns(["text1Merged", "text2Merged", "__index_level_0__"])
 
     # convert dataset features to PyTorch tensors
     validDataset.set_format(type='torch', columns=["ground_truth", "input_ids", "attention_mask"])
@@ -380,48 +359,6 @@ with open(RESULTS_PATH + "/outputData.pkl", "wb") as f:
 with open(RESULTS_PATH + "/time.pkl", "wb") as f: 
     pickle.dump(elapsed, f)
 
-
-# In[ ]:
-
-
-#the dimensions should correspond to fold number, epoch number, metric number, and batch number 
-np.array(metrics).shape
-
-
-# In[ ]:
-
-
-iterList = []
-corrList = []
-#go through each epoch 
-for epoch in range(EPOCHS): 
-    corrList = []
-    for fold in range(FOLDS):
-
-        df = pd.DataFrame(metrics[fold][epoch]).T
-        df.columns =  ["loss", "pred", "true"]
-        corr = np.corrcoef(df["pred"], df["true"])[1,0]
-        corrList.append(corr)
-    print("Epoch: " + str(epoch))
-    print("Average Correlation: " + str(np.mean(corrList)))
-    """
-    subDf = pd.DataFrame(validArr[i].T)
-    subDf.columns = ["loss", "pred", "true"]
-    corr = np.corrcoef(subDf["pred"], subDf["true"])
-    corrList.append(corr[1, 0])
-    iterList.append(i)
-    print(corr)
-    """
-pass
-"""
-plt.plot(iterList, corrList)
-plt.xlabel("batch num")
-plt.ylabel("pearson correlation")
-plt.title("validation eval")
-"""
-
-
-# In[ ]:
 
 
 
