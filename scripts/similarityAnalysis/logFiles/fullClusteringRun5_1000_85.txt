@@ -1,0 +1,52 @@
+Entities Used: ['person', 'norp', 'fac', 'org', 'gpe', 'loc', 'product', 'event', 'work_of_art', 'law']
+Cluster Cutoffs: [5, 1000]
+Input Path: /shared/3/projects/newsDiffusion/data/processed/newsData/fullDataWithNERCleaned.tsv
+Output Path: /shared/3/projects/newsDiffusion/data/interim/NEREmbedding/entityPairs2020.pkl
+loading news data
+2211647 rows in 2020 df
+loading embeddings
+0      0
+1      1
+2      2
+3      3
+4      4
+5      5
+6      6
+7      7
+8      8
+9      9
+10    10
+Name: key, dtype: int64
+0     2428066
+1     2283486
+2     1543217
+3     1543216
+4     1543215
+5     1543214
+6     2283336
+7     1543243
+8     1543213
+9     2672172
+10    2672173
+Name: key, dtype: int64
+5081145
+merging embeddings
+2211647 rows after merging, dropping na keys, embeddings
+date range: 
+2020-12-31 00:00:00
+2020-01-01 00:00:00
+parsing
+parsed
+0 NA values in Named Entities column
+Filling with '' instead
+exploding #1
+splitting entity, type
+filtering by entity type, grouping
+5076002 rows in entity-grouped df
+filtering clusters not between 5, 1000
+down to 600733 clusters 
+HIGH MEMORY: getting pairs
+HIGH MEMORY: exploding pairs
+making key columns
+dropping duplicates
+final length of 1630430382 rows

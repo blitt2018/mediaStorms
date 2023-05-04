@@ -1,0 +1,36 @@
+2442280 rows in 2020 df
+loading embeddings
+merging embeddings
+2442280 rows after merging, dropping na keys, embeddings
+date range:
+2020-12-31 00:00:00
+2020-01-01 00:00:00
+parsing
+0.0-bl-getEntityPairs.py:95: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.  
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  leanDf["NamedEntities"] = leanDf["NamedEntities"].apply(parseList)
+parsed
+0 NA values in Named Entities column
+Filling with '' instead
+0.0-bl-getEntityPairs.py:103: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.  
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  leanDf["NamedEntities"] = leanDf["NamedEntities"].fillna("")
+exploding #1
+splitting entity, type
+filtering by entity type, grouping
+4369435 rows in entity-grouped df
+filtering clusters not between 5, 1000
+down to 525325 clusters
+HIGH MEMORY: getting pairs
+HIGH MEMORY: exploding pairs
+(1520538594, 2)
+making key columns
+dropping duplicates
+final length of 1314023745 rows
+

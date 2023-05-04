@@ -1,0 +1,10 @@
+starting similarity calculations
+splitting embedding list
+getting similarity
+  0%|          | 0/4 [00:00<?, ?it/s]
+concatenating chunks together
+adding column to dataframe
+7806692 pairs >=  0.8
+creating graph
+writing graph
+generating components
