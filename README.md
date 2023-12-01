@@ -3,9 +3,9 @@ localNews
 
 Thanks for checking out our analysis of large scale news stories in the media ecosystem. This repo contains (or points to) a number of resources for further large-scale study of news using computational methods. 
 
--Our scalable news article similarity model can be found at https://huggingface.co/Blablablab/newsSimilarity. 
--Our dataset of millions of news articles with new story cluster labels can be found here: https://huggingface.co/datasets/Blablablab/mediaStorms/blob/main/storyClusterData.tsv.gz
--Our dataset of news articles which have been identified as taking part in media storms between April 2020 and December 2021 can be found here: https://huggingface.co/datasets/Blablablab/mediaStorms/blob/main/mediaStormArticles.tsv
+- Our scalable news article similarity model can be found at https://huggingface.co/Blablablab/newsSimilarity. 
+- Our dataset of millions of news articles with new story cluster labels can be found here: https://huggingface.co/datasets/Blablablab/mediaStorms/blob/main/storyClusterData.tsv.gz
+- Our dataset of news articles which have been identified as taking part in media storms between April 2020 and December 2021 can be found here: https://huggingface.co/datasets/Blablablab/mediaStorms/blob/main/mediaStormArticles.tsv
 
 Project Organization
 ------------
