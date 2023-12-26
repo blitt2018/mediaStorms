@@ -1,4 +1,4 @@
-localNews
+media Storms 
 ==============================
 
 Thanks for checking out our analysis of large scale news stories in the media ecosystem. This repo contains (or points to) a number of resources for further large-scale study of news using computational methods. 
