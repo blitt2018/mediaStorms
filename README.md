@@ -7,6 +7,8 @@ Thanks for checking out our analysis of large scale news stories in the media ec
 - Our dataset of millions of news articles with new story cluster labels can be found here: https://huggingface.co/datasets/Blablablab/mediaStorms/blob/main/storyClusterData.tsv.gz
 - Our dataset of news articles which have been identified as taking part in media storms between April 2020 and December 2021 can be found here: https://huggingface.co/datasets/Blablablab/mediaStorms/blob/main/mediaStormArticles.tsv
 
+If you would like to rerun our pipeline and create your own news-story clusters, our pipeline for doing so is found in `mediaStorms/scripts/similarityAnalysis/runClusteringPipeline.sh`. First, pairs of articles which may pertain to the same story or event are identified using Named Entity Recognition. Next, pairwise cosine similarity is computed for all of these pairs using our fine-tuned news-similarity model. Finally, we create a graph based on pairwise similarity, drop edges below a given similarity threshold, and identify the connected components of this graph. 
+
 Project Organization
 ------------
 
